@@ -7,30 +7,31 @@ client.login(process.env.CLIENT_TOKEN)
 	.catch(err => console.log('Invalid client token'))
 
 client.on("message", async (msg) => {
-	if (msg.content === "/members") {
-		let arr = []
-		let guild = msg.guild
+	if (msg.member && msg.member.hasPermission(['ADMINISTRATOR'])) {
+		if (msg.content === "/members") {
+			let arr = []
+			let guild = msg.guild
 
-		guild.members.cache.forEach((member) => {
-			arr.push({
-				member: member.user.tag,
-				joined: member.joinedAt,
+			guild.members.cache.forEach((member) => {
+				arr.push({
+					member: member.user.tag,
+					joined: member.joinedAt,
+				})
 			})
-		})
 
-		generateCSV(arr)
+			await generateCSV(arr)
 
-		await msg.channel.send(
-			`Here's a list of all ${guild.memberCount} server members!`,
-			{
-				files: ["./members.csv"],
-			}
-		)
-
+			await msg.channel.send(
+				`Here's a list of all ${guild.memberCount} server members!`,
+				{
+					files: ["./members.csv"],
+				}
+			)
+		}
 	}
 })
 
-function generateCSV(arr) {
+async function generateCSV(arr) {
 	const csvWriter = createCsvWriter({
 		path: "members.csv",
 		header: [
@@ -41,5 +42,5 @@ function generateCSV(arr) {
 
 	csvWriter
 		.writeRecords(arr)
-		.then(() => console.log("\nThe CSV file was written successfully"))
+		.then(() => console.log("\nThe CSV file was written successfully with " + arr.length + " members"))
 }
