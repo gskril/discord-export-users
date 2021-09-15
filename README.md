@@ -5,7 +5,7 @@ Generate a CSV of all Discord members in a server and the date they joined
 Clone the project
 
 ```bash
-git clone https://github.com/gskril/discord-bot.git
+git clone https://github.com/gskril/discord-export-users.git
 ```
 
 Go to the project directory
