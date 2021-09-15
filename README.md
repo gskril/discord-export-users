@@ -1,5 +1,5 @@
 # Export Discord Users
-Generate a CSV of all Discord members in a server and the date they joined
+Generate a CSV of all Discord members in a server and the date they joined.
 
 ## Run Locally
 Clone the project
@@ -31,3 +31,7 @@ npm start
 	- [This is a helpful video](https://youtu.be/SPTfmiYiuok?t=124) showing how to do exactly that
 - In Bot settings, check "Server Members Intent"
 - Back in the project files, rename .env.example to .env and enter your bot client token
+
+## How to Use
+- Send a message that says "/members" to any channel (suggested in private channel first for testing)
+- Only server members with admin permissions can use this function
