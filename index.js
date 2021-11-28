@@ -27,8 +27,13 @@ async function generateCsvOfMembers(msg) {
 	guild.members.cache.forEach((member) => {
 		members.push({
 			member: member.user.tag,
-			joined: member.joinedAt,
+			joined: member.joinedAt.toString().split(" GMT")[0],
 		})
+	})
+
+	// Sort list by joined date
+	members.sort((a, b) => {
+		return new Date(a.joined) - new Date(b.joined)
 	})
 
 	const csv = new ObjectsToCsv(members)
